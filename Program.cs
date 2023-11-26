@@ -25,8 +25,8 @@ namespace AllSign {
             }
             else if(args.Length == 2) {
                 // sign the files in the directory specified
-                pfx = args[1];
-                signDir = args[2];
+                pfx = args[0];
+                signDir = args[1];
             }
             else {
                 // invalid/no args
@@ -46,6 +46,7 @@ namespace AllSign {
         /// <param name="type"></param>
         public static void Sign(string pfx, string signDir, string type) {
             foreach (var file in Directory.EnumerateFiles(signDir, type, SearchOption.AllDirectories)) {
+                Console.WriteLine($"Attempting to sign {file}");
                 try {
                     using (var proc = new Process()) {
                         proc.StartInfo.FileName = "signtool.exe";
